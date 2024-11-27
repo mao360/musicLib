@@ -1,0 +1,130 @@
+basePath: /
+definitions:
+  models.Song:
+    properties:
+      group:
+        type: string
+      link:
+        type: string
+      releaseDate:
+        type: string
+      song:
+        type: string
+      text:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API server for Music Lib App
+  title: Music Lib App API
+  version: "1.0"
+paths:
+  /song:
+    post:
+      consumes:
+      - application/json
+      description: Add Song to db
+      parameters:
+      - description: JSON payload for creating a resource
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/models.Song'
+      responses:
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Add Song
+  /song/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete song from db
+      parameters:
+      - description: JSON payload for creating a resource
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/models.Song'
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Delete Song
+    get:
+      description: Get song text with pagination
+      parameters:
+      - description: The page query parameter (required)
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: The pageSize query parameter (required)
+        in: query
+        name: pageSize
+        required: true
+        type: string
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Get text
+  /songs:
+    get:
+      description: Get all songs, use filters
+      parameters:
+      - description: The page query parameter (required)
+        in: query
+        name: page
+        required: true
+        type: string
+      - description: The pageSize query parameter (required)
+        in: query
+        name: pageSize
+        required: true
+        type: string
+      - description: The group_name query parameter (optional)
+        in: query
+        name: group_name
+        type: string
+      - description: The song_name query parameter (optional)
+        in: query
+        name: song_name
+        type: string
+      - description: The song_text query parameter (optional)
+        in: query
+        name: song_text
+        type: string
+      - description: The release_date query parameter (optional)
+        in: query
+        name: release_date
+        type: string
+      - description: The link query parameter (optional)
+        in: query
+        name: link
+        type: string
+      produces:
+      - application/json
+      responses:
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Get all song
+swagger: "2.0"
